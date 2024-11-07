@@ -4,6 +4,7 @@ import InputWithLabel from "./InputWithLabel";
 import React from "react";
 import axios from "axios";
 import Yazi from "./Yazi";
+import Modal from "./Modal";
 import { useSelector,useDispatch } from "react-redux";
 function App() {
   const API_ENDPOINT =
@@ -11,6 +12,13 @@ function App() {
   const [aramaMetni, setAramaMetni] = React.useState(
     localStorage.getItem("aranan") || "Web"
   );
+const [isModalOpen,setModalOpen]=React.useState(false);
+const handleOpenModal=()=>{
+  setModalOpen(true);
+}
+const handleCloseModal=()=>{
+  setModalOpen(false);
+}
 const dispatch=useDispatch();
 const data=useSelector((state)=>state.data);
 const isLoading=useSelector((state)=>state.isLoading);
@@ -67,6 +75,11 @@ const isError=useSelector((state)=>state.isError);
           }
         />
       )}
+      <button onClick={handleOpenModal}>Bildirim Göster</button>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+      <h2>Merhaba</h2>
+      <p>Bu bir modaldır.</p>
+      </Modal>
     </div>
   );
 }
